@@ -7,12 +7,12 @@
 Summary: Rails 3 plugin that allows you to customize ERB views in a Rails application without editing the underlying view.
 Name: %{?scl_prefix}rubygem-%{gem_name}
 Version: 0.7.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Group: Development/Libraries
 License: MIT
 URL: https://github.com/spree/deface
 Source0: http://rubygems.org/downloads/%{gem_name}-%{version}.gem
-%if 0%{?fedora} > 18
+%if 0%{?fedora} || 0%{?rhel} > 6
 Requires: %{?scl_prefix}ruby(release)
 BuildRequires: %{?scl_prefix}ruby(release)
 %else
@@ -76,9 +76,11 @@ cp -a .%{gem_dir}/* \
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Wed Oct  1 2014 Haïkel Guémar <hguemar@fedoraproject.org> - 0.7.2-7
+- Fix FTBFS on EL7
+
 * Wed Aug 14 2013 Lukas Zapletal <lzap+git@redhat.com> 0.7.2-6
 - rebuild
-
 
 * Fri May 31 2013 Miroslav Suchý <msuchy@redhat.com> 0.7.2-5
 - change ruby(abi) to ruby(release) for F19+ (msuchy@redhat.com)
