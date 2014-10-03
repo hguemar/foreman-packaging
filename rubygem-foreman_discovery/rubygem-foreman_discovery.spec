@@ -13,7 +13,7 @@
 
 %global mainver 1.4.0
 %global prever .rc3
-%global release 1
+%global release 2
 %{?prever:
 %global gem_instdir %{gem_dir}/gems/%{gem_name}-%{mainver}%{?prever}
 %global gem_docdir %{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}
@@ -41,18 +41,15 @@ Requires:   advancecomp
 Requires:   squashfs-tools
 Requires:   sudo
 
-%if 0%{?fedora} > 18
-Requires: %{?scl_prefix}ruby(release)
-%else
+%if 0%{?rhel} == 6
+BuildRequires: %{?scl_prefix}ruby(abi) >= %{rubyabi}
 Requires: %{?scl_prefix}ruby(abi) >= %{rubyabi}
+%else
+BuildRequires: %{?scl_prefix}ruby(release)
+Requires: %{?scl_prefix}ruby(release)
 %endif
 Requires: %{?scl_prefix}rubygems
 
-%if 0%{?fedora} > 18
-BuildRequires: %{?scl_prefix}ruby(release)
-%else
-BuildRequires: %{?scl_prefix}ruby(abi) >= %{rubyabi}
-%endif
 BuildRequires: %{?scl_prefix}rubygems-devel
 BuildRequires: %{?scl_prefix}rubygems
 
@@ -125,6 +122,9 @@ mkdir -p %{buildroot}/%{foreman_dir}/discovery_image
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Oct 03 2014 Haikel Guemar <hguemar@fedoraproject.org> 1.4.0-0.2.rc3
+- Fix FTBFS on EL7
+
 * Tue Sep 23 2014 Dominic Cleal <dcleal@redhat.com> 1.4.0-0.1.rc3
 - Update foreman_discovery to 1.4.0.rc3 (dcleal@redhat.com)
 
