@@ -7,23 +7,21 @@
 Summary: Various file-tools for Ruby
 Name: %{?scl_prefix}rubygem-%{gem_name}
 Version: 0.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Group: Development/Languages
 License: MIT
 URL: http://github.com/kaspernj/ftools
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
-%if 0%{?fedora} > 18
-Requires: %{?scl_prefix}ruby(release)
-%else
+%if 0%{?rhel} == 6
+BuildRequires: %{?scl_prefix}ruby(abi) = %{rubyabi}
 Requires: %{?scl_prefix}ruby(abi) = %{rubyabi}
+%else
+BuildRequires: %{?scl_prefix}ruby(release)
+Requires: %{?scl_prefix}ruby(release)
 %endif
 Requires: %{?scl_prefix}ruby(rubygems)
 Requires: %{?scl_prefix}ruby
-%if 0%{?fedora} > 18
-BuildRequires: %{?scl_prefix}ruby(release)
-%else
-BuildRequires: %{?scl_prefix}ruby(abi) = %{rubyabi}
-%endif
+
 BuildRequires: %{?scl_prefix}rubygems-devel
 BuildRequires: %{?scl_prefix}ruby
 BuildArch: noarch
@@ -76,6 +74,10 @@ cp -a .%{gem_dir}/* \
 %exclude %{gem_instdir}/Gemfile*
 
 %changelog
+* Fri Oct 03 2014 Haikel Guemar <hguemar@fedoraproject.org> 0.0.0-4
+- Fix FTBFS on EL7
+
+
 * Wed Aug 14 2013 Lukas Zapletal <lzap+git@redhat.com> 0.0.0-3
 - rebuild
 
